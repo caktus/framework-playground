@@ -30,7 +30,7 @@ class SpellCheckerTests(unittest.TestCase):
 
     def test_invalid_words(self):
         "Ask the server to check invalid words."
-        words = ['123', '$^%$%','asdflkahdrflauhflkafda', 'google.com', ]
+        words = ['123', '$^%$%', 'asdflkahdrflauhflkafda', 'google.com', ]
         for word in words:
             response = self._make_request(word=word)
             self.assertEqual(response.status_code, 200)
@@ -41,6 +41,11 @@ class SpellCheckerTests(unittest.TestCase):
         "Send a request without the 'q' parameter."
         response = self._make_request(word=None)
         self.assertEqual(response.status_code, 400)
+
+    def test_invalid_url(self):
+        "Send a request other than /check"
+        response = requests.get(SERVER_BASE + "/uncheck")
+        self.assertEqual(response.status_code, 404)
 
 
 if __name__ == '__main__':
