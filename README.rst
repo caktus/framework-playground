@@ -25,3 +25,21 @@ word is a valid English word::
     /check?q=154o98asdfan ==> {'valid': false}
 
 If missing the service should return a 400 response.
+
+
+Acceptance Tests
+--------------------------------------------------------------------------------
+
+The included ``tests.py`` runs through a series of acceptance tests for the service.
+To run them you must have Python 2.7+ installed and ``python-requests``.::
+
+    pip install requests==1.2.0
+
+To run them you simply call::
+
+    python tests.py
+
+This assumes that the server is running on http://localhost:8000. To change this
+host/port you can set the ``TEST_URL`` environment variable.::
+
+    export TEST_URL='http://localhost:8888' && python tests.py
