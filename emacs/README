@@ -1,0 +1,16 @@
+
+Emacs example of a spell-checking Web API.
+
+Instructions:
+
+* Install Emacs v24
+* Install hunspell
+* Start Emacs
+* If elnode has not been installed in your Emacs already:
+
+    * Open install.el in Emacs
+    * Do M-x eval-buffer to install elnode
+
+* Open spellcheck.el in Emacs
+* Do M-x eval-buffer to start the server on port 8000
+
