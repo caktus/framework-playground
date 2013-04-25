@@ -24,4 +24,4 @@ word is a valid English word::
     # Invalid word request/response
     /check?q=154o98asdfan ==> {'valid': false}
 
-If missing the service should return a 400 response.
+If the ``q`` parameter is missing the service should return a 400 response.
