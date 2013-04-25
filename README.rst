@@ -10,7 +10,7 @@ language for your app.
 Service Description
 --------------------------------------------------------------------------------
 
-Each example service should expose a single url for spell checking a word.
+Each example service should expose a single url for spell checking a word.::
 
     /check?q=word
 
