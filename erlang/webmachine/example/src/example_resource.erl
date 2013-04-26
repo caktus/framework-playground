@@ -16,7 +16,8 @@ allowed_methods(ReqData, Ctx) ->
     {['GET'], ReqData, Ctx}.
 
 malformed_request(ReqData, Ctx) ->
-    {false, ReqData, Ctx}.
+    Q = wrq:get_qs_value("q", ReqData),
+    {Q == undefined, ReqData, Ctx}.
 
 to_json(ReqData, Ctx) ->
     Result = [{valid, true}],
