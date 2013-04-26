@@ -3,7 +3,7 @@
 %% @doc Example webmachine_resource.
 
 -module(example_resource).
--export([init/1, content_types_provided/2, allowed_methods/2, malformed_request/2, to_json/2, check_spelling/1]).
+-export([init/1, content_types_provided/2, allowed_methods/2, malformed_request/2, to_json/2, check_spelling/1, readfile/1]).
 
 -include_lib("webmachine/include/webmachine.hrl").
 
@@ -26,4 +26,9 @@ to_json(ReqData, Ctx) ->
     {mochijson:encode({struct, Result}), ReqData, Ctx}.
 
 check_spelling(Word) ->
-    true.
+    WordSet = sets:from_list(readfile("/usr/share/dict/words")),
+    sets:is_element(Word, WordSet).
+
+readfile(FileName) ->
+    {ok, Binary} = file:read_file(FileName),
+    string:tokens(erlang:binary_to_list(Binary), "\n").
