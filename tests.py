@@ -32,7 +32,7 @@ class SpellCheckerTests(unittest.TestCase):
 
     def test_valid_words_case_sensitivity(self):
         "Ask the server to check valid words."
-        words = ['DOG', 'Cat', 'cacTus', 'raZZmatazz', 'ÉClair' ]
+        words = ['DOG', 'Cat', 'Cactus', 'Razzmatazz', 'Éclair' ]
         for word in words:
             response = self._make_request(word=word)
             self.assertEqual(response.status_code, 200)
