@@ -31,7 +31,7 @@ class SpellCheckerTests(unittest.TestCase):
             self.assertTrue(result['valid'], '%s should be a valid word.' % word)
 
     def test_multiple_qs(self):
-        "Ask for multiple valeus of q. (No guarantee which one will be answered.)"
+        "Ask for multiple values of q. (No guarantee which one will be answered.)"
         nonwords = ['ninininini', 'alskfj']
         finewords = ['blooming', 'raspberry']
         response = requests.get('%s?q=%s&q=%s' % (SERVER_URL, nonwords[0], nonwords[1]))
