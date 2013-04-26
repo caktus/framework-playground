@@ -3,7 +3,7 @@
 %% @doc Example webmachine_resource.
 
 -module(example_resource).
--export([init/1, content_types_provided/2, allowed_methods/2, malformed_request/2, to_json/2]).
+-export([init/1, content_types_provided/2, allowed_methods/2, malformed_request/2, to_json/2, check_spelling/1]).
 
 -include_lib("webmachine/include/webmachine.hrl").
 
@@ -20,5 +20,10 @@ malformed_request(ReqData, Ctx) ->
     {Q == undefined, ReqData, Ctx}.
 
 to_json(ReqData, Ctx) ->
-    Result = [{valid, true}],
+    Q = wrq:get_qs_value("q", ReqData),
+    Valid = check_spelling(Q),
+    Result = [{valid, Valid}],
     {mochijson:encode({struct, Result}), ReqData, Ctx}.
+
+check_spelling(Word) ->
+    true.
