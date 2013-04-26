@@ -19,10 +19,10 @@ an English dictionary and return a JSON response indicating whether or not the
 word is a valid English word::
 
     # Valid word request/response
-    /check?q=word ==> {'valid': true}
+    /check?q=word ==> {"valid": true}
 
     # Invalid word request/response
-    /check?q=154o98asdfan ==> {'valid': false}
+    /check?q=154o98asdfan ==> {"valid": false}
 
 If the ``q`` parameter is missing the service should return a 400 response.
 
