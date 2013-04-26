@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import os
@@ -21,7 +23,16 @@ class SpellCheckerTests(unittest.TestCase):
 
     def test_valid_words(self):
         "Ask the server to check valid words."
-        words = ['dog', 'cat', 'cactus', 'razzmatazz', ]
+        words = ['dog', 'cat', 'cactus', 'razzmatazz', 'éclair']
+        for word in words:
+            response = self._make_request(word=word)
+            self.assertEqual(response.status_code, 200)
+            result = response.json()
+            self.assertTrue(result['valid'], '%s should be a valid word.' % word)
+
+    def test_valid_words_case_sensitivity(self):
+        "Ask the server to check valid words."
+        words = ['DOG', 'Cat', 'cacTus', 'raZZmatazz', 'ÉClair' ]
         for word in words:
             response = self._make_request(word=word)
             self.assertEqual(response.status_code, 200)
