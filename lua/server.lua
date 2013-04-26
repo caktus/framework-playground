@@ -31,6 +31,9 @@ local function check_handler (req, res)
        return err_400(req, res)
     end
     word = params['q']
+    if type(word) == 'table' then
+       word = word[1]  -- punt
+    end
     result = check_spelling(word)
     res.headers ["Content-Type"] = "text/json"
     if result then
