@@ -14,3 +14,6 @@ Instructions:
 * Open spellcheck.el in Emacs
 * Do M-x eval-buffer to start the server on port 8000
 
+To stop the server:
+
+* M-x elnode-stop
