@@ -1,7 +1,4 @@
 require "xavante"
-spell = require("spell")
-
-local sc = spell('/usr/share/hunspell/en_US.aff', '/usr/share/hunspell/en_US.dic')
 
 local function err_400 (req, res)
 	res.statusline = "HTTP/1.1 400 Invalid request"
@@ -17,6 +14,12 @@ The requested URL %s was not a valid request.<P>
 	return res
 end
 
+local function check_spelling(word)
+    -- return true if word is spelled okay
+   local cmd = string.format("./checkspelling.sh %s", word)
+   local output = io.popen(cmd, "r"):read()
+   return (output == 'true') and true or false
+end
 
 -- handle /check?q=xxxx requests
 local function check_handler (req, res)
@@ -28,7 +31,7 @@ local function check_handler (req, res)
        return err_400(req, res)
     end
     word = params['q']
-    result = sc:spell(word)
+    result = check_spelling(word)
     res.headers ["Content-Type"] = "text/json"
     if result then
        res.content = '{"valid": true}'
