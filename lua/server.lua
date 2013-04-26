@@ -23,9 +23,9 @@ end
 
 -- handle /check?q=xxxx requests
 local function check_handler (req, res)
-	if req.cmd_mth ~= "GET" and req.cmd_mth ~= "HEAD" then
-		return xavante.httpd.err_405 (req, res)
-	end
+    if req.cmd_mth ~= "GET" and req.cmd_mth ~= "HEAD" then
+        return xavante.httpd.err_405 (req, res)
+    end
     params = xavante.httpd.getparams(req)
     if (params == nil) or (params['q'] == nil) then
        return err_400(req, res)
