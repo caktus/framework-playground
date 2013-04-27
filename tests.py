@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import os
@@ -21,7 +23,33 @@ class SpellCheckerTests(unittest.TestCase):
 
     def test_valid_words(self):
         "Ask the server to check valid words."
-        words = ['dog', 'cat', 'cactus', 'razzmatazz', ]
+        words = ['dog', 'cat', 'cactus', 'razzmatazz', 'éclair']
+        for word in words:
+            response = self._make_request(word=word)
+            self.assertEqual(response.status_code, 200)
+            result = response.json()
+            self.assertTrue(result['valid'], '%s should be a valid word.' % word)
+
+    def test_multiple_qs(self):
+        "Ask for multiple values of q. (No guarantee which one will be answered.)"
+        nonwords = ['ninininini', 'alskfj']
+        finewords = ['blooming', 'raspberry']
+        response = requests.get('%s?q=%s&q=%s' % (SERVER_URL, nonwords[0], nonwords[1]))
+        self.assertEqual(response.status_code, 200)
+        result = response.json()
+        self.assertFalse(
+            result['valid'],
+            'q parameters of all nonwords (%r) should not be considered valid.' % nonwords)
+        response = requests.get("%s?q=%s&q=%s" % (SERVER_URL, finewords[0], finewords[1]))
+        self.assertEqual(response.status_code, 200)
+        result = response.json()
+        self.assertTrue(
+            result['valid'],
+            'q parameters of all fine words (%r) should be considered valid.' % finewords)
+
+    def test_valid_words_case_sensitivity(self):
+        "Ask the server to check valid words."
+        words = ['DOG', 'Cat', 'Cactus', 'Razzmatazz', 'Éclair' ]
         for word in words:
             response = self._make_request(word=word)
             self.assertEqual(response.status_code, 200)
