@@ -15,7 +15,7 @@ def check_spelling():
     word = request.args.get('q', None) or None
     if word is None:
         abort(400)
-    valid = re.match(r'[a-zA-Z]+', word)
+    valid = re.search(r'[a-zA-Z]+', word)
     return jsonify(valid=valid and english.check(word))
 
 
