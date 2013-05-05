@@ -1,0 +1,14 @@
+{application, spellchecker,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {modules, []},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  cowboy
+                 ]},
+  {mod, { spellchecker_app, []}},
+  {env, []}
+ ]}.
